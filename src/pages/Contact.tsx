@@ -29,11 +29,32 @@ export default function Contact() {
     setSuccess(false)
 
     try {
-      await addDoc(collection(db, 'contact_messages'), {
+      // Validate form data
+      if (!formData.nume || !formData.email || !formData.telefon || !formData.subiect || !formData.mesaj) {
+        throw new Error('Toate câmpurile sunt obligatorii')
+      }
+
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!emailRegex.test(formData.email)) {
+        throw new Error('Adresa de email nu este validă')
+      }
+
+      // Validate phone number format (Romanian format)
+      const phoneRegex = /^(\+4|)?(07[0-8]{1}[0-9]{1}|02[0-9]{2}|03[0-9]{2}){1}?(\s|\.|\-)?([0-9]{3}(\s|\.|\-|)){2}$/
+      if (!phoneRegex.test(formData.telefon)) {
+        throw new Error('Numărul de telefon nu este valid')
+      }
+
+      const messageData = {
         ...formData,
         dataTrimitere: new Date().toISOString(),
         status: 'necitit'
-      })
+      }
+
+      console.log('Attempting to send message:', messageData)
+      const docRef = await addDoc(collection(db, 'contact_messages'), messageData)
+      console.log('Message sent successfully with ID:', docRef.id)
 
       setSuccess(true)
       setFormData({
@@ -45,7 +66,11 @@ export default function Contact() {
       })
     } catch (error) {
       console.error('Error sending message:', error)
-      setError('A apărut o eroare la trimiterea mesajului. Vă rugăm să încercați din nou.')
+      if (error instanceof Error) {
+        setError(error.message)
+      } else {
+        setError('A apărut o eroare la trimiterea mesajului. Vă rugăm să încercați din nou.')
+      }
     } finally {
       setLoading(false)
     }
