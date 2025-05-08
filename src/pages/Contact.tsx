@@ -90,7 +90,7 @@ export default function Contact() {
                 <h3 className="font-medium text-sm sm:text-base">Adresă</h3>
                 <p className="text-gray-600 text-xs sm:text-sm">OLR Vadu Volovat, Nr. 880a, Volovăț 727615, Județul Suceava</p>
                 <a 
-                  href="https://www.google.com/maps/place/OLR+Vadu+Volovat/@47.816667,26.466667,15z/data=!4m6!3m5!1s0x4734c6c7c0c0c0c0:0x0!8m2!3d47.816667!4d26.466667!16s%2Fg%2F11b8v8v8v8"
+                  href="https://www.google.com/maps/place/OLR+Vadu+Volovat/@47.7988948,25.8622322,752m/data=!3m2!1e3!4b1!4m6!3m5!1s0x47344f3e77a5be6f:0xb5e2d0fa0e099dd5!8m2!3d47.7988949!4d25.8670977!16s%2Fg%2F11gxh4_nmj?entry=ttu&g_ep=EgoyMDI1MDUwNi4wIKXMDSoJLDEwMjExNDU1SAFQAw%3D%3D"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary hover:text-secondary text-xs sm:text-sm mt-1 inline-flex items-center"
