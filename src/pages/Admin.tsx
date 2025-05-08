@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { auth, db } from '../firebase'
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth'
-import { collection, getDocs, deleteDoc, doc, updateDoc } from 'firebase/firestore'
+import { collection, getDocs, deleteDoc, doc, updateDoc, addDoc } from 'firebase/firestore'
 
 interface Registration {
   id: string
@@ -35,6 +35,7 @@ export default function Admin() {
   const [contactMessages, setContactMessages] = useState<ContactMessage[]>([])
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState<'registrations' | 'messages'>('registrations')
+  const [message, setMessage] = useState('')
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -121,6 +122,47 @@ export default function Admin() {
       } catch (error) {
         console.error('Error deleting message:', error)
       }
+    }
+  }
+
+  const addTestParticipants = async () => {
+    setLoading(true)
+    setMessage('')
+    
+    const testParticipants = [
+      {
+        nume: 'Ion Popescu',
+        oras: 'București',
+        participari: 3,
+        premii: ['Locul 1 - Concurs 2023', 'Locul 2 - Derby 2023']
+      },
+      {
+        nume: 'Maria Ionescu',
+        oras: 'Cluj-Napoca',
+        participari: 2,
+        premii: ['Locul 3 - Concurs 2024']
+      },
+      {
+        nume: 'George Dumitrescu',
+        oras: 'Iași',
+        participari: 4,
+        premii: ['Locul 1 - Derby 2024', 'Locul 2 - Concurs 2023']
+      }
+    ]
+
+    try {
+      const participantiRef = collection(db, 'participanti')
+      
+      for (const participant of testParticipants) {
+        await addDoc(participantiRef, participant)
+      }
+      
+      setMessage('Participanții de test au fost adăugați cu succes!')
+    } catch (error) {
+      console.error('Error adding test participants:', error)
+      setMessage('A apărut o eroare la adăugarea participanților.')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -370,6 +412,24 @@ export default function Admin() {
           </table>
         </div>
       )}
+
+      <div className="mt-6 bg-white rounded-lg shadow-md p-4 sm:p-6">
+        <h2 className="text-lg sm:text-xl font-semibold mb-4">Adaugă Participanți de Test</h2>
+        
+        <button
+          onClick={addTestParticipants}
+          disabled={loading}
+          className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark disabled:opacity-50"
+        >
+          {loading ? 'Se adaugă...' : 'Adaugă Participanți de Test'}
+        </button>
+
+        {message && (
+          <p className={`mt-4 ${message.includes('eroare') ? 'text-red-600' : 'text-green-600'}`}>
+            {message}
+          </p>
+        )}
+      </div>
     </div>
   )
 } 
