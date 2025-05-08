@@ -155,13 +155,24 @@ export default function Admin() {
     try {
       const participantiRef = collection(db, 'participanti')
       
+      // Verificăm dacă colecția există
+      const querySnapshot = await getDocs(participantiRef)
+      console.log('Colecția participanti există:', !querySnapshot.empty)
+      
+      // Adăugăm participanții unul câte unul și verificăm rezultatul
       for (const participant of participants) {
-        await addDoc(participantiRef, participant)
+        try {
+          const docRef = await addDoc(participantiRef, participant)
+          console.log('Participant adăugat cu ID:', docRef.id)
+        } catch (error) {
+          console.error('Eroare la adăugarea participantului:', participant.nume, error)
+          throw error // Propagăm eroarea pentru a fi prinsă de blocul catch exterior
+        }
       }
       
       setMessage('Participanții au fost adăugați cu succes!')
     } catch (error) {
-      console.error('Error adding participants:', error)
+      console.error('Eroare detaliată la adăugarea participanților:', error)
       setMessage('A apărut o eroare la adăugarea participanților. Vă rugăm să încercați din nou.')
     } finally {
       setLoading(false)
@@ -174,6 +185,21 @@ export default function Admin() {
       await updateDoc(doc(db, 'registrations', id), {
         statusPlata: newStatus
       })
+
+      // Dacă plata este marcată ca achitată, adăugăm participantul în colecția participanti
+      if (newStatus === 'achitat') {
+        const registration = registrations.find(reg => reg.id === id)
+        if (registration) {
+          const participantiRef = collection(db, 'participanti')
+          await addDoc(participantiRef, {
+            nume: registration.numeProprietar,
+            oras: registration.oras,
+            participari: 1,
+            premii: []
+          })
+        }
+      }
+
       await fetchRegistrations()
     } catch (error) {
       console.error('Error updating payment status:', error)
