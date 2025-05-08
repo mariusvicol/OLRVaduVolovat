@@ -186,17 +186,32 @@ export default function Admin() {
         statusPlata: newStatus
       })
 
-      // Dacă plata este marcată ca achitată, adăugăm participantul în colecția participanti
+      // Dacă plata este marcată ca achitată, verificăm dacă participantul există
       if (newStatus === 'achitat') {
         const registration = registrations.find(reg => reg.id === id)
         if (registration) {
           const participantiRef = collection(db, 'participanti')
-          await addDoc(participantiRef, {
-            nume: registration.numeProprietar,
-            oras: registration.oras,
-            participari: 1,
-            premii: []
-          })
+          const querySnapshot = await getDocs(participantiRef)
+          
+          // Căutăm participantul după nume
+          const existingParticipant = querySnapshot.docs.find(
+            doc => doc.data().nume === registration.numeProprietar
+          )
+
+          if (existingParticipant) {
+            // Dacă există, incrementăm numărul de participări
+            await updateDoc(doc(db, 'participanti', existingParticipant.id), {
+              participari: existingParticipant.data().participari + 1
+            })
+          } else {
+            // Dacă nu există, creăm un nou document
+            await addDoc(participantiRef, {
+              nume: registration.numeProprietar,
+              oras: registration.oras,
+              participari: 1,
+              premii: []
+            })
+          }
         }
       }
 
