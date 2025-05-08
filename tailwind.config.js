@@ -8,12 +8,6 @@ export default {
   ],
   theme: {
     extend: {
-      backgroundColor: {
-        background: '#ffffff',
-      },
-      textColor: {
-        text: '#2d3748',
-      },
       colors: {
         primary: '#3b82f6',
         secondary: '#60a5fa',

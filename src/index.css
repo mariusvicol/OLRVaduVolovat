@@ -26,9 +26,9 @@ body {
 }
 
 a {
-  @apply text-primary no-underline;
+  @apply text-blue-500 no-underline;
 }
 
 a:hover {
-  @apply text-secondary;
+  @apply text-blue-400;
 }
