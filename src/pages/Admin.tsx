@@ -36,7 +36,7 @@ export default function Admin() {
   const [registrations, setRegistrations] = useState<Registration[]>([])
   const [contactMessages, setContactMessages] = useState<ContactMessage[]>([])
   const [loading, setLoading] = useState(true)
-  const [activeTab, setActiveTab] = useState<'registrations' | 'messages'>('registrations')
+  const [activeTab, setActiveTab] = useState<'registrations' | 'messages' | 'participants'>('registrations')
   const [message, setMessage] = useState('')
   const navigate = useNavigate()
 
@@ -127,11 +127,11 @@ export default function Admin() {
     }
   }
 
-  const addTestParticipants = async () => {
+  const addParticipants = async () => {
     setLoading(true)
     setMessage('')
     
-    const testParticipants = [
+    const participants = [
       {
         nume: 'Ion Popescu',
         oras: 'București',
@@ -155,14 +155,14 @@ export default function Admin() {
     try {
       const participantiRef = collection(db, 'participanti')
       
-      for (const participant of testParticipants) {
+      for (const participant of participants) {
         await addDoc(participantiRef, participant)
       }
       
-      setMessage('Participanții de test au fost adăugați cu succes!')
+      setMessage('Participanții au fost adăugați cu succes!')
     } catch (error) {
-      console.error('Error adding test participants:', error)
-      setMessage('A apărut o eroare la adăugarea participanților.')
+      console.error('Error adding participants:', error)
+      setMessage('A apărut o eroare la adăugarea participanților. Vă rugăm să încercați din nou.')
     } finally {
       setLoading(false)
     }
@@ -252,7 +252,7 @@ export default function Admin() {
       </div>
 
       {/* Tabs */}
-      <div className="mb-6 border-b border-gray-200">
+      <div className="border-b border-gray-200 mb-6">
         <nav className="-mb-px flex space-x-8">
           <button
             onClick={() => setActiveTab('registrations')}
@@ -273,6 +273,16 @@ export default function Admin() {
             } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
           >
             Mesaje Contact
+          </button>
+          <button
+            onClick={() => setActiveTab('participants')}
+            className={`${
+              activeTab === 'participants'
+                ? 'border-primary text-primary'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+            } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
+          >
+            Participanți
           </button>
         </nav>
       </div>
@@ -481,23 +491,26 @@ export default function Admin() {
         </div>
       )}
 
-      <div className="mt-6 bg-white rounded-lg shadow-md p-4 sm:p-6">
-        <h2 className="text-lg sm:text-xl font-semibold mb-4">Adaugă Participanți de Test</h2>
-        
-        <button
-          onClick={addTestParticipants}
-          disabled={loading}
-          className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark disabled:opacity-50"
-        >
-          {loading ? 'Se adaugă...' : 'Adaugă Participanți de Test'}
-        </button>
+      {/* Participants Section */}
+      {activeTab === 'participants' && (
+        <div className="mt-6 bg-white rounded-lg shadow-md p-4 sm:p-6">
+          <h2 className="text-lg sm:text-xl font-semibold mb-4">Adaugă Participanți</h2>
+          
+          <button
+            onClick={addParticipants}
+            disabled={loading}
+            className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark disabled:opacity-50"
+          >
+            {loading ? 'Se adaugă...' : 'Adaugă Participanți'}
+          </button>
 
-        {message && (
-          <p className={`mt-4 ${message.includes('eroare') ? 'text-red-600' : 'text-green-600'}`}>
-            {message}
-          </p>
-        )}
-      </div>
+          {message && (
+            <p className={`mt-4 ${message.includes('eroare') ? 'text-red-600' : 'text-green-600'}`}>
+              {message}
+            </p>
+          )}
+        </div>
+      )}
     </div>
   )
 } 
