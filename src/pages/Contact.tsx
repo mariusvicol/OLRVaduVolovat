@@ -134,8 +134,13 @@ export default function Contact() {
               </svg>
               <div>
                 <h3 className="font-medium text-sm sm:text-base">Program</h3>
-                <p className="text-gray-600 text-xs sm:text-sm">Luni - Vineri: 09:00 - 17:00</p>
-                <p className="text-gray-600 text-xs sm:text-sm">Sâmbătă: 09:00 - 13:00</p>
+                <p className="text-gray-600 text-xs sm:text-sm">Luni: 09:00 - 20:00</p>
+                <p className="text-gray-600 text-xs sm:text-sm">Marți: 09:00 - 20:00</p>
+                <p className="text-gray-600 text-xs sm:text-sm">Miercuri: 09:00 - 20:00</p>
+                <p className="text-gray-600 text-xs sm:text-sm">Joi: 09:00 - 20:00</p>
+                <p className="text-gray-600 text-xs sm:text-sm">Vineri: 09:00 - 20:00</p>
+                <p className="text-gray-600 text-xs sm:text-sm">Sâmbătă: 09:00 - 20:00</p>
+                <p className="text-gray-600 text-xs sm:text-sm">Duminică: Închis</p>
               </div>
             </div>
           </div>
