@@ -8,9 +8,13 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
+      backgroundColor: {
         background: '#ffffff',
+      },
+      textColor: {
         text: '#2d3748',
+      },
+      colors: {
         primary: '#3b82f6',
         secondary: '#60a5fa',
         accent: '#93c5fd',

@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-background text-text;
+    @apply bg-white text-gray-800;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
 }
