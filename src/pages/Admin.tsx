@@ -155,18 +155,29 @@ export default function Admin() {
     try {
       const participantiRef = collection(db, 'participanti')
       
-      // Verificăm dacă colecția există
-      const querySnapshot = await getDocs(participantiRef)
-      console.log('Colecția participanti există:', !querySnapshot.empty)
-      
-      // Adăugăm participanții unul câte unul și verificăm rezultatul
+      // Verificăm dacă colecția există și adăugăm participanții unul câte unul
       for (const participant of participants) {
         try {
-          const docRef = await addDoc(participantiRef, participant)
-          console.log('Participant adăugat cu ID:', docRef.id)
+          // Verificăm dacă participantul există deja
+          const querySnapshot = await getDocs(participantiRef)
+          const existingParticipant = querySnapshot.docs.find(
+            doc => doc.data().nume === participant.nume
+          )
+
+          if (existingParticipant) {
+            // Dacă există, actualizăm numărul de participări
+            await updateDoc(doc(db, 'participanti', existingParticipant.id), {
+              participari: existingParticipant.data().participari + 1
+            })
+            console.log('Participant actualizat:', participant.nume)
+          } else {
+            // Dacă nu există, creăm un nou document
+            await addDoc(participantiRef, participant)
+            console.log('Participant nou adăugat:', participant.nume)
+          }
         } catch (error) {
           console.error('Eroare la adăugarea participantului:', participant.nume, error)
-          throw error // Propagăm eroarea pentru a fi prinsă de blocul catch exterior
+          throw error
         }
       }
       
