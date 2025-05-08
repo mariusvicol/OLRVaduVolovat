@@ -38,6 +38,13 @@ export default function Admin() {
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState<'registrations' | 'messages' | 'participants'>('registrations')
   const [message, setMessage] = useState('')
+  const [newParticipant, setNewParticipant] = useState({
+    nume: '',
+    oras: '',
+    participari: 1,
+    premii: [] as string[]
+  })
+  const [newPremiu, setNewPremiu] = useState('')
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -127,64 +134,46 @@ export default function Admin() {
     }
   }
 
-  const addParticipants = async () => {
+  const handleAddParticipant = async () => {
+    if (!newParticipant.nume || !newParticipant.oras) {
+      setMessage('Vă rugăm să completați toate câmpurile obligatorii.')
+      return
+    }
+
     setLoading(true)
     setMessage('')
-    
-    const participants = [
-      {
-        nume: 'Ion Popescu',
-        oras: 'București',
-        participari: 3,
-        premii: ['Locul 1 - Concurs 2023', 'Locul 2 - Derby 2023']
-      },
-      {
-        nume: 'Maria Ionescu',
-        oras: 'Cluj-Napoca',
-        participari: 2,
-        premii: ['Locul 3 - Concurs 2024']
-      },
-      {
-        nume: 'George Dumitrescu',
-        oras: 'Iași',
-        participari: 4,
-        premii: ['Locul 1 - Derby 2024', 'Locul 2 - Concurs 2023']
-      }
-    ]
 
     try {
       const participantiRef = collection(db, 'participanti')
       
-      // Verificăm dacă colecția există și adăugăm participanții unul câte unul
-      for (const participant of participants) {
-        try {
-          // Verificăm dacă participantul există deja
-          const querySnapshot = await getDocs(participantiRef)
-          const existingParticipant = querySnapshot.docs.find(
-            doc => doc.data().nume === participant.nume
-          )
+      // Verificăm dacă participantul există deja
+      const querySnapshot = await getDocs(participantiRef)
+      const existingParticipant = querySnapshot.docs.find(
+        doc => doc.data().nume === newParticipant.nume
+      )
 
-          if (existingParticipant) {
-            // Dacă există, actualizăm numărul de participări
-            await updateDoc(doc(db, 'participanti', existingParticipant.id), {
-              participari: existingParticipant.data().participari + 1
-            })
-            console.log('Participant actualizat:', participant.nume)
-          } else {
-            // Dacă nu există, creăm un nou document
-            await addDoc(participantiRef, participant)
-            console.log('Participant nou adăugat:', participant.nume)
-          }
-        } catch (error) {
-          console.error('Eroare la adăugarea participantului:', participant.nume, error)
-          throw error
-        }
+      if (existingParticipant) {
+        // Dacă există, actualizăm numărul de participări
+        await updateDoc(doc(db, 'participanti', existingParticipant.id), {
+          participari: existingParticipant.data().participari + 1
+        })
+        setMessage('Participant actualizat cu succes!')
+      } else {
+        // Dacă nu există, creăm un nou document
+        await addDoc(participantiRef, newParticipant)
+        setMessage('Participant adăugat cu succes!')
       }
-      
-      setMessage('Participanții au fost adăugați cu succes!')
+
+      // Resetăm formularul
+      setNewParticipant({
+        nume: '',
+        oras: '',
+        participari: 1,
+        premii: []
+      })
     } catch (error) {
-      console.error('Eroare detaliată la adăugarea participanților:', error)
-      setMessage('A apărut o eroare la adăugarea participanților. Vă rugăm să încercați din nou.')
+      console.error('Eroare la adăugarea participantului:', error)
+      setMessage('A apărut o eroare la adăugarea participantului. Vă rugăm să încercați din nou.')
     } finally {
       setLoading(false)
     }
@@ -250,6 +239,23 @@ export default function Admin() {
     } catch (error) {
       console.error('Error updating activation status:', error)
     }
+  }
+
+  const handleAddPremiu = () => {
+    if (newPremiu.trim()) {
+      setNewParticipant(prev => ({
+        ...prev,
+        premii: [...prev.premii, newPremiu.trim()]
+      }))
+      setNewPremiu('')
+    }
+  }
+
+  const handleRemovePremiu = (index: number) => {
+    setNewParticipant(prev => ({
+      ...prev,
+      premii: prev.premii.filter((_, i) => i !== index)
+    }))
   }
 
   useEffect(() => {
@@ -554,21 +560,93 @@ export default function Admin() {
       {/* Participants Section */}
       {activeTab === 'participants' && (
         <div className="mt-6 bg-white rounded-lg shadow-md p-4 sm:p-6">
-          <h2 className="text-lg sm:text-xl font-semibold mb-4">Adaugă Participanți</h2>
+          <h2 className="text-lg sm:text-xl font-semibold mb-4">Adaugă Participant Nou</h2>
           
-          <button
-            onClick={addParticipants}
-            disabled={loading}
-            className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark disabled:opacity-50"
-          >
-            {loading ? 'Se adaugă...' : 'Adaugă Participanți'}
-          </button>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Nume Participant *</label>
+              <input
+                type="text"
+                value={newParticipant.nume}
+                onChange={(e) => setNewParticipant({...newParticipant, nume: e.target.value})}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+                required
+              />
+            </div>
 
-          {message && (
-            <p className={`mt-4 ${message.includes('eroare') ? 'text-red-600' : 'text-green-600'}`}>
-              {message}
-            </p>
-          )}
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Oraș *</label>
+              <input
+                type="text"
+                value={newParticipant.oras}
+                onChange={(e) => setNewParticipant({...newParticipant, oras: e.target.value})}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Număr Participări</label>
+              <input
+                type="number"
+                value={newParticipant.participari}
+                onChange={(e) => setNewParticipant({...newParticipant, participari: parseInt(e.target.value) || 1})}
+                min="1"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Premii</label>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={newPremiu}
+                  onChange={(e) => setNewPremiu(e.target.value)}
+                  placeholder="Adaugă un premiu"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+                />
+                <button
+                  type="button"
+                  onClick={handleAddPremiu}
+                  className="mt-1 px-3 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200"
+                >
+                  +
+                </button>
+              </div>
+              
+              {newParticipant.premii.length > 0 && (
+                <div className="mt-2 space-y-2">
+                  {newParticipant.premii.map((premiu, index) => (
+                    <div key={index} className="flex items-center justify-between bg-gray-50 p-2 rounded">
+                      <span>{premiu}</span>
+                      <button
+                        type="button"
+                        onClick={() => handleRemovePremiu(index)}
+                        className="text-red-600 hover:text-red-800"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <button
+              onClick={handleAddParticipant}
+              disabled={loading}
+              className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark disabled:opacity-50"
+            >
+              {loading ? 'Se adaugă...' : 'Adaugă Participant'}
+            </button>
+
+            {message && (
+              <p className={`mt-4 ${message.includes('eroare') ? 'text-red-600' : 'text-green-600'}`}>
+                {message}
+              </p>
+            )}
+          </div>
         </div>
       )}
     </div>
