@@ -55,7 +55,7 @@ export default function Layout({ children }: LayoutProps) {
                 Acasă
               </Link>
               <Link to="/competitii" className="inline-flex items-center px-3 sm:px-4 py-2 text-sm font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg transition-all duration-300">
-                Concursuri
+                Înscriere
               </Link>
               <Link to="/plan-zbor" className="inline-flex items-center px-3 sm:px-4 py-2 text-sm font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg transition-all duration-300">
                 Plan de Zbor
@@ -113,7 +113,7 @@ export default function Layout({ children }: LayoutProps) {
                   className="block px-3 py-2 rounded-md text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Concursuri
+                  Înscriere
                 </Link>
                 <Link
                   to="/plan-zbor"
