@@ -23,25 +23,25 @@ const Regulament = () => {
               </li>
               <li className="flex items-center">
                 <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
-                Echipă de <strong className="text-primary">5 porumbei + 1 gratis</strong> – 250 EURO (ofertă pentru primele 100 de echipe achitate)
+                Echipă de <strong className="text-primary mx-1">5 porumbei + 1 gratis</strong> – 250 EURO (ofertă pentru primele 100 de echipe achitate)
               </li>
               <li className="flex items-center">
                 <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
-                Restul echipelor: <strong className="text-primary">5+1 gratis</strong> – 300 EURO
+                Restul echipelor: <strong className="text-primary mx-1">5+1 gratis</strong> – 300 EURO
               </li>
             </ul>
             <p className="text-lg mt-6"><strong className="text-primary">Beneficii suplimentare:</strong></p>
             <ul className="list-none space-y-3">
               <li className="flex items-center">
                 <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
-                Crescătorii cu 3 echipe primesc <strong className="text-primary">încă 2 porumbei gratis</strong>
+                Crescătorii cu 3 echipe primesc <strong className="text-primary mx-1">încă 2 porumbei gratis</strong>
               </li>
               <li className="flex items-center">
                 <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
-                Taxa de activare: <strong className="text-primary">70 EURO</strong> după ultimul antrenament de 100 km (îmbarcare manuală și transmisă live)
+                Taxa de activare: <strong className="text-primary mx-1">70 EURO</strong> după ultimul antrenament de 100 km (îmbarcare manuală și transmisă live)
               </li>
             </ul>
-            <p className="mt-6 text-lg">Plata se face în conturile menționate. Porumbeii pot fi aduși fără limită. Curs valutar: <strong className="text-primary">5 lei/euro</strong></p>
+            <p className="mt-6 text-lg">Plata se face în conturile menționate. Porumbeii pot fi aduși fără limită. Curs valutar: <strong className="text-primary mx-1">5 lei/euro</strong></p>
           </div>
         </section>
 
@@ -76,10 +76,10 @@ const Regulament = () => {
           </ul>
           <p className="mt-6 text-gray-600">
             Îmbarcările antrenamentelor și concursurilor pot fi urmărite live pe{' '}
-            <a href="https://www.facebook.com/vaduvolovat/?locale=ro_RO" className="text-primary hover:text-primary/80 transition-colors duration-300 font-medium">
+            <a href="https://www.facebook.com/vaduvolovat/?locale=ro_RO" className="text-primary hover:text-primary/80 transition-colors duration-300 font-medium mx-1">
               Facebook
             </a>{' '}
-            și prin <strong className="text-primary">Benzing Live</strong>
+            și prin <strong className="text-primary mx-1">Benzing Live</strong>
           </p>
         </section>
 
@@ -140,7 +140,7 @@ const Regulament = () => {
             <ul className="list-none space-y-3">
               <li className="flex items-center">
                 <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
-                Crescătorul primește <strong className="text-primary">40%</strong>, OLR-ul <strong className="text-primary">40%</strong>, site-ul <strong className="text-primary">20%</strong>
+                Crescătorul primește <strong className="text-primary mx-1">40%</strong>, OLR-ul <strong className="text-primary mx-1">40%</strong>, site-ul <strong className="text-primary mx-1">20%</strong>
               </li>
               <li className="flex items-center">
                 <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
@@ -148,7 +148,7 @@ const Regulament = () => {
               </li>
               <li className="flex items-center">
                 <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
-                Porumbeii nevânduți pot fi răscumpărați de proprietar pentru <strong className="text-primary">150 RON</strong> în 5 zile
+                Porumbeii nevânduți pot fi răscumpărați de proprietar pentru <strong className="text-primary mx-1">150 RON</strong> în 5 zile
               </li>
             </ul>
           </div>
@@ -167,11 +167,11 @@ const Regulament = () => {
             <ul className="list-none space-y-3">
               <li className="flex items-center">
                 <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
-                Primii <strong className="text-primary">5</strong> porumbei din semifinală nu participă
+                Primii <strong className="text-primary mx-1">5</strong> porumbei din semifinală nu participă
               </li>
               <li className="flex items-center">
                 <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
-                Primii <strong className="text-primary">20</strong> din finală și primii <strong className="text-primary">10 AS</strong> nu participă
+                Primii <strong className="text-primary mx-1">20</strong> din finală și primii <strong className="text-primary mx-1">10 AS</strong> nu participă
               </li>
               <li className="flex items-center">
                 <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
@@ -183,14 +183,14 @@ const Regulament = () => {
               </li>
               <li className="flex items-center">
                 <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
-                <strong className="text-primary">Minim 150</strong> porumbei activați necesari pentru organizare
+                <strong className="text-primary mx-1">Minim 150</strong> porumbei activați necesari pentru organizare
               </li>
               <li className="flex items-center">
                 <span className="w-2 h-2 bg-primary rounded-full mr-3"></span>
-                Taxă activare: <strong className="text-primary">50 EURO/porumbel</strong> (nominalizare serie)
+                Taxă activare: <strong className="text-primary mx-1">50 EURO/porumbel</strong> (nominalizare serie)
               </li>
             </ul>
-            <p className="text-lg mt-6">Premiile sunt calculate pentru <strong className="text-primary">1500 porumbei activați</strong>. Se ajustează proporțional în funcție de numărul final de participanți.</p>
+            <p className="text-lg mt-6">Premiile sunt calculate pentru <strong className="text-primary mx-1">1500 porumbei activați</strong>. Se ajustează proporțional în funcție de numărul final de participanți.</p>
             <p className="text-lg"><strong className="text-primary">Toate premiile vor fi impozitate conform legislației!</strong></p>
           </div>
         </section>
