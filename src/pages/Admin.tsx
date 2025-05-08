@@ -14,6 +14,8 @@ interface Registration {
   numarPorumbei: number
   tipEchipa: string
   suma: number
+  statusPlata: 'neachitat' | 'achitat'
+  statusActivare: 'inactiv' | 'activ'
 }
 
 interface ContactMessage {
@@ -166,6 +168,30 @@ export default function Admin() {
     }
   }
 
+  const handleUpdatePaymentStatus = async (id: string, currentStatus: string) => {
+    try {
+      const newStatus = currentStatus === 'neachitat' ? 'achitat' : 'neachitat'
+      await updateDoc(doc(db, 'registrations', id), {
+        statusPlata: newStatus
+      })
+      await fetchRegistrations()
+    } catch (error) {
+      console.error('Error updating payment status:', error)
+    }
+  }
+
+  const handleUpdateActivationStatus = async (id: string, currentStatus: string) => {
+    try {
+      const newStatus = currentStatus === 'inactiv' ? 'activ' : 'inactiv'
+      await updateDoc(doc(db, 'registrations', id), {
+        statusActivare: newStatus
+      })
+      await fetchRegistrations()
+    } catch (error) {
+      console.error('Error updating activation status:', error)
+    }
+  }
+
   useEffect(() => {
     if (isAuthenticated) {
       fetchRegistrations()
@@ -282,6 +308,12 @@ export default function Admin() {
                   Suma
                 </th>
                 <th className="px-6 py-4 text-left text-sm font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">
+                  Status Plată
+                </th>
+                <th className="px-6 py-4 text-left text-sm font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">
+                  Status Activare
+                </th>
+                <th className="px-6 py-4 text-left text-sm font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">
                   Acțiuni
                 </th>
               </tr>
@@ -313,13 +345,49 @@ export default function Admin() {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     {registration.suma} EUR
                   </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm">
+                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                      registration.statusPlata === 'achitat' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                    }`}>
+                      {registration.statusPlata === 'achitat' ? 'Achitat' : 'Neachitat'}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm">
+                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                      registration.statusActivare === 'activ' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                    }`}>
+                      {registration.statusActivare === 'activ' ? 'Activ' : 'Inactiv'}
+                    </span>
+                  </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    <button
-                      onClick={() => handleDelete(registration.id)}
-                      className="text-red-600 hover:text-red-900 font-medium"
-                    >
-                      Șterge
-                    </button>
+                    <div className="flex space-x-2">
+                      <button
+                        onClick={() => handleUpdatePaymentStatus(registration.id, registration.statusPlata)}
+                        className={`px-2 py-1 rounded text-xs font-medium ${
+                          registration.statusPlata === 'achitat'
+                            ? 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200'
+                            : 'bg-green-100 text-green-800 hover:bg-green-200'
+                        }`}
+                      >
+                        {registration.statusPlata === 'achitat' ? 'Marchează Neachitat' : 'Marchează Achitat'}
+                      </button>
+                      <button
+                        onClick={() => handleUpdateActivationStatus(registration.id, registration.statusActivare)}
+                        className={`px-2 py-1 rounded text-xs font-medium ${
+                          registration.statusActivare === 'activ'
+                            ? 'bg-red-100 text-red-800 hover:bg-red-200'
+                            : 'bg-green-100 text-green-800 hover:bg-green-200'
+                        }`}
+                      >
+                        {registration.statusActivare === 'activ' ? 'Dezactivează' : 'Activează'}
+                      </button>
+                      <button
+                        onClick={() => handleDelete(registration.id)}
+                        className="text-red-600 hover:text-red-900 font-medium"
+                      >
+                        Șterge
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
