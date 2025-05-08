@@ -69,6 +69,9 @@ export default function Layout({ children }: LayoutProps) {
               <Link to="/premii" className="inline-flex items-center px-3 sm:px-4 py-2 text-sm font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg transition-all duration-300">
                 Premii
               </Link>
+              <Link to="/regulament" className="inline-flex items-center px-3 sm:px-4 py-2 text-sm font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg transition-all duration-300">
+                Regulament
+              </Link>
               <Link to="/contact" className="inline-flex items-center px-3 sm:px-4 py-2 text-sm font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-lg transition-all duration-300">
                 Contact
               </Link>
@@ -139,6 +142,13 @@ export default function Layout({ children }: LayoutProps) {
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Premii
+                </Link>
+                <Link
+                  to="/regulament"
+                  className="block px-3 py-2 rounded-md text-sm sm:text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Regulament
                 </Link>
                 <Link
                   to="/contact"
