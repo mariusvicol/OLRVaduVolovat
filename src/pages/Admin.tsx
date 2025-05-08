@@ -190,27 +190,34 @@ export default function Admin() {
       if (newStatus === 'achitat') {
         const registration = registrations.find(reg => reg.id === id)
         if (registration) {
-          const participantiRef = collection(db, 'participanti')
-          const querySnapshot = await getDocs(participantiRef)
-          
-          // Căutăm participantul după nume
-          const existingParticipant = querySnapshot.docs.find(
-            doc => doc.data().nume === registration.numeProprietar
-          )
+          try {
+            const participantiRef = collection(db, 'participanti')
+            const querySnapshot = await getDocs(participantiRef)
+            
+            // Căutăm participantul după nume
+            const existingParticipant = querySnapshot.docs.find(
+              doc => doc.data().nume === registration.numeProprietar
+            )
 
-          if (existingParticipant) {
-            // Dacă există, incrementăm numărul de participări
-            await updateDoc(doc(db, 'participanti', existingParticipant.id), {
-              participari: existingParticipant.data().participari + 1
-            })
-          } else {
-            // Dacă nu există, creăm un nou document
-            await addDoc(participantiRef, {
-              nume: registration.numeProprietar,
-              oras: registration.oras,
-              participari: 1,
-              premii: []
-            })
+            if (existingParticipant) {
+              // Dacă există, incrementăm numărul de participări
+              await updateDoc(doc(db, 'participanti', existingParticipant.id), {
+                participari: existingParticipant.data().participari + 1
+              })
+              console.log('Participant actualizat cu succes:', registration.numeProprietar)
+            } else {
+              // Dacă nu există, creăm un nou document
+              await addDoc(participantiRef, {
+                nume: registration.numeProprietar,
+                oras: registration.oras,
+                participari: 1,
+                premii: []
+              })
+              console.log('Participant nou adăugat:', registration.numeProprietar)
+            }
+          } catch (error) {
+            console.error('Eroare la gestionarea participantului:', error)
+            // Continuăm execuția chiar dacă avem eroare la adăugarea participantului
           }
         }
       }
@@ -218,6 +225,7 @@ export default function Admin() {
       await fetchRegistrations()
     } catch (error) {
       console.error('Error updating payment status:', error)
+      alert('A apărut o eroare la actualizarea statusului plății. Vă rugăm să încercați din nou.')
     }
   }
 
