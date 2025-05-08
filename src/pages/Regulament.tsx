@@ -6,7 +6,7 @@ const Regulament = () => {
       </h1>
       <div className="h-1 w-16 sm:w-24 bg-primary mx-auto mb-6 sm:mb-8 rounded-full"></div>
 
-      <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-xl border border-gray-100 p-4 sm:p-8 space-y-6 sm:space-y-10">
+      <div className="space-y-6 sm:space-y-10">
         <section className="bg-gradient-to-br from-gray-50 to-white rounded-lg p-4 sm:p-6 shadow-sm border border-gray-100">
           <h2 className="text-xl sm:text-2xl font-semibold text-primary mb-3 sm:mb-4 flex items-center">
             <svg className="w-5 h-5 sm:w-6 sm:h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
