@@ -37,15 +37,15 @@ export default function Galerie() {
   ]
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <div className="space-y-12">
+    <div className="max-w-6xl mx-auto px-3 py-4 sm:py-8">
+      <div className="space-y-8 sm:space-y-12">
         <ImageGallery
           title="Hale de Concurs"
           description="Galerie cu halele de concurs din Vadu Volovat, locul unde porumbeii sunt găzduiți și pregătiți pentru competiții."
           images={haleImages}
         />
 
-        <div className="border-t border-gray-200 my-12" />
+        <div className="border-t border-gray-200 my-8 sm:my-12" />
 
         <ImageGallery
           title="Amintiri Finala Vadu Volovat"

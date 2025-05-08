@@ -99,27 +99,27 @@ export default function Competitii() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Înscriere Concursuri</h1>
+    <div className="max-w-4xl mx-auto px-3 py-4 sm:py-8">
+      <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-8">Înscriere Concursuri</h1>
 
       {success && (
-        <div className="mb-6 p-4 bg-green-100 text-green-700 rounded-md">
+        <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-green-100 text-green-700 rounded-md text-sm sm:text-base">
           Înregistrarea pentru concurs a fost trimisă cu succes!
         </div>
       )}
 
       {error && (
-        <div className="mb-6 p-4 bg-red-100 text-red-700 rounded-md">
+        <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-red-100 text-red-700 rounded-md text-sm sm:text-base">
           {error}
         </div>
       )}
 
       {/* Formular Înscriere */}
-      <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 mb-6 sm:mb-8">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             <div>
-              <label htmlFor="numeProprietar" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="numeProprietar" className="block text-xs sm:text-sm font-medium text-gray-700">
                 Nume Proprietar
               </label>
               <input
@@ -127,14 +127,14 @@ export default function Competitii() {
                 id="numeProprietar"
                 name="numeProprietar"
                 required
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+                className="mt-1 block w-full px-2 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
                 value={formData.numeProprietar}
                 onChange={handleChange}
               />
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="email" className="block text-xs sm:text-sm font-medium text-gray-700">
                 Email
               </label>
               <input
@@ -142,14 +142,14 @@ export default function Competitii() {
                 id="email"
                 name="email"
                 required
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+                className="mt-1 block w-full px-2 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
                 value={formData.email}
                 onChange={handleChange}
               />
             </div>
 
             <div>
-              <label htmlFor="telefon" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="telefon" className="block text-xs sm:text-sm font-medium text-gray-700">
                 Telefon
               </label>
               <input
@@ -157,14 +157,14 @@ export default function Competitii() {
                 id="telefon"
                 name="telefon"
                 required
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+                className="mt-1 block w-full px-2 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
                 value={formData.telefon}
                 onChange={handleChange}
               />
             </div>
 
             <div>
-              <label htmlFor="oras" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="oras" className="block text-xs sm:text-sm font-medium text-gray-700">
                 Oraș
               </label>
               <input
@@ -172,21 +172,21 @@ export default function Competitii() {
                 id="oras"
                 name="oras"
                 required
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+                className="mt-1 block w-full px-2 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
                 value={formData.oras}
                 onChange={handleChange}
               />
             </div>
 
             <div>
-              <label htmlFor="numarEchipe" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="numarEchipe" className="block text-xs sm:text-sm font-medium text-gray-700">
                 Număr Echipe (5+1 gratis)
               </label>
               <select
                 id="numarEchipe"
                 name="numarEchipe"
                 required
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+                className="mt-1 block w-full px-2 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
                 value={formData.numarEchipe}
                 onChange={handleChange}
               >
@@ -200,7 +200,7 @@ export default function Competitii() {
             </div>
 
             <div>
-              <label htmlFor="numarPorumbeiIndividuali" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="numarPorumbeiIndividuali" className="block text-xs sm:text-sm font-medium text-gray-700">
                 Număr Porumbei Individuali
               </label>
               <input
@@ -208,57 +208,49 @@ export default function Competitii() {
                 id="numarPorumbeiIndividuali"
                 name="numarPorumbeiIndividuali"
                 min="0"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+                className="mt-1 block w-full px-2 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
                 value={formData.numarPorumbeiIndividuali}
                 onChange={handleChange}
               />
-              <p className="mt-1 text-sm text-gray-500">60 EUR per porumbel</p>
+              <p className="mt-1 text-xs sm:text-sm text-gray-500">60 EUR per porumbel</p>
             </div>
           </div>
 
           <div>
-            <label htmlFor="observatii" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="observatii" className="block text-xs sm:text-sm font-medium text-gray-700">
               Observații
             </label>
             <textarea
               id="observatii"
               name="observatii"
               rows={3}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+              className="mt-1 block w-full px-2 sm:px-3 py-1.5 sm:py-2 text-sm sm:text-base rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
               value={formData.observatii}
               onChange={handleChange}
             />
           </div>
 
           {/* Suma Totală */}
-          <div className="border-t border-gray-200 pt-6">
-            <div className="mt-6 bg-gray-50 p-4 rounded-lg">
+          <div className="border-t border-gray-200 pt-4 sm:pt-6">
+            <div className="mt-4 sm:mt-6 bg-gray-50 p-3 sm:p-4 rounded-lg">
               <div className="flex justify-between items-center">
-                <span className="text-lg font-medium text-gray-900">Suma Totală:</span>
-                <span className="text-2xl font-bold text-primary">{calculareSuma()} EUR</span>
+                <span className="text-base sm:text-lg font-medium text-gray-900">Suma Totală:</span>
+                <span className="text-xl sm:text-2xl font-bold text-primary">{calculareSuma()} EUR</span>
               </div>
               <div className="mt-2 space-y-1">
                 {parseInt(formData.numarEchipe) > 0 && (
-                  <p className="text-sm text-gray-500">
+                  <p className="text-xs sm:text-sm text-gray-500">
                     Taxă Întreținere Echipe: {parseInt(formData.numarEchipe) <= 3 ? '250 EUR/echipă' : '250 EUR/echipă (primele 3) + 300 EUR/echipă (restul)'}
                   </p>
                 )}
                 {parseInt(formData.numarPorumbeiIndividuali) > 0 && (
-                  <p className="text-sm text-gray-500">
+                  <p className="text-xs sm:text-sm text-gray-500">
                     Taxă Întreținere Porumbei Individuali: 60 EUR/porumbel
                   </p>
                 )}
-                <p className="text-sm text-gray-500">
+                <p className="text-xs sm:text-sm text-gray-500">
                   Taxă Activare: 50 EUR/porumbel
                 </p>
-                <p className="text-sm text-gray-500">
-                  Număr Total Porumbei: {(parseInt(formData.numarEchipe) * 6) + parseInt(formData.numarPorumbeiIndividuali)} (inclusiv porumbeii gratis)
-                </p>
-                {parseInt(formData.numarEchipe) === 3 && (
-                  <p className="text-sm text-green-600 font-medium">
-                    + 2 porumbei gratis pentru înscrierea cu 3 echipe
-                  </p>
-                )}
               </div>
             </div>
           </div>
@@ -267,11 +259,11 @@ export default function Competitii() {
             <button
               type="submit"
               disabled={loading}
-              className={`bg-primary text-white px-6 py-2 rounded-md ${
-                loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-primary/90'
-              } transition-colors`}
+              className={`px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base bg-primary text-white rounded-md hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors ${
+                loading ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
             >
-              {loading ? 'Se trimite...' : 'Finalizează înscrierea'}
+              {loading ? 'Se trimite...' : 'Trimite Înregistrarea'}
             </button>
           </div>
         </form>
